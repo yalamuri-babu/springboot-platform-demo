@@ -47,5 +47,16 @@ pipeline {
                 '''
             }
         }
+        stage('Deploy to EKS with Helm') {
+             steps {
+                 sh '''
+                   kubectl create namespace dev --dry-run=client -o yaml | kubectl apply -f -
+                   helm upgrade --install springboot-app ./helm/springboot-app \
+                  --namespace dev \
+                  --set image.repository=${ECR_REPO} \
+                  --set image.tag=${IMAGE_TAG}
+ '''
+    }
+}
     }
 }
