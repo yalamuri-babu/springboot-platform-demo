@@ -1,15 +1,21 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "springboot-app.fullname" . }}
-  labels:
-    {{- include "springboot-app.labels" . | nindent 4 }}
-spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
-  selector:
-    {{- include "springboot-app.selectorLabels" . | nindent 4 }}
+replicaCount: 1
+
+image:
+  repository: 776751404462.dkr.ecr.ap-south-1.amazonaws.com/springboot-devops-app
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8080
+
+containerPort: 8080
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "250m"
+    memory: "512Mi"

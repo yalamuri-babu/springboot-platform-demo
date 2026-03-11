@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: springboot-app
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-	app: springboot-app
+        app: springboot-app
     spec:
       containers:
         - name: springboot-app
@@ -20,4 +20,4 @@ spec:
           ports:
             - containerPort: {{ .Values.containerPort }}
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+            {{- toYaml .Values.resources | nindent 12 }}
