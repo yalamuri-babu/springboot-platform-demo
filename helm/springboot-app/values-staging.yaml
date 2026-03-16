@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: 776751404462.dkr.ecr.ap-south-1.amazonaws.com/springboot-devops-app
