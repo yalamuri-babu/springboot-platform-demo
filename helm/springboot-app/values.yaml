@@ -19,3 +19,17 @@ resources:
   limits:
     cpu: "250m"
     memory: "512Mi"
+
+readinessProbe:
+  path: /
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 2
+  failureThreshold: 3
+
+livenessProbe:
+  path: /
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
