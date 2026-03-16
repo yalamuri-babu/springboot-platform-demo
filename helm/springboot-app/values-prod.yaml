@@ -1,7 +1,7 @@
 replicaCount: 2
 
-image:
-  tag: "prod-latest"
+image:776751404462.dkr.ecr.ap-south-1.amazonaws.com/springboot-devops-app
+  tag: latest, 12
 
 service:
   type: LoadBalancer
