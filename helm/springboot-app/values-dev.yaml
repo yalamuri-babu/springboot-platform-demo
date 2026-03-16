@@ -1,21 +1,21 @@
 replicaCount: 1
 
 image:
-  repository: 776751404462.dkr.ecr.ap-south-1.amazonaws.com/springboot-devops-app
-  tag: latest
-  pullPolicy: Always
+  tag: "dev-latest"
 
 service:
-  type: LoadBalancer
-  port: 80
-  targetPort: 8080
-
-containerPort: 8080
+  type: ClusterIP
 
 resources:
   requests:
-    cpu: "110m"
-    memory: "256Mi"
+    cpu: "100m"
+    memory: "128Mi"
   limits:
-    cpu: "250m"
-    memory: "512Mi"
+    cpu: "200m"
+    memory: "256Mi"
+
+hpa:
+  enabled: false
+
+pdb:
+  enabled: false

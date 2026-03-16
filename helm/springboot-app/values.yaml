@@ -2,11 +2,11 @@ replicaCount: 1
 
 image:
   repository: 776751404462.dkr.ecr.ap-south-1.amazonaws.com/springboot-devops-app
-  tag: latest
-  pullPolicy: Always
+  tag: "latest"
+  pullPolicy: IfNotPresent
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
   targetPort: 8080
 
@@ -33,3 +33,20 @@ livenessProbe:
   periodSeconds: 10
   timeoutSeconds: 2
   failureThreshold: 3
+
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  averageUtilization: 70
+
+pdb:
+  enabled: false
+  minAvailable: 1
+
+ingress:
+  enabled: false
+  className: ""
+  host: ""
+  path: /
+  pathType: Prefix
