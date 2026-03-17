@@ -17,9 +17,9 @@ resources:
     memory: "512Mi"
 
 hpa:
-  enabled: false
-  
+  enabled: true
+  replicaCount: 2
 
 pdb:
-  enabled: true
+  enabled: false
   
