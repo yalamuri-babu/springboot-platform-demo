@@ -5,10 +5,26 @@ image:
   tag: "latest"
   pullPolicy: IfNotPresent
 
+containerPort: 8080
+
 service:
   type: ClusterIP
   port: 80
   targetPort: 8080
+
+readinessProbe:
+  path: /actuator/health
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+livenessProbe:
+  path: /actuator/health
+  initialDelaySeconds: 30
+  periodSeconds: 15
+  timeoutSeconds: 5
+  failureThreshold: 3
 
 resources:
   requests:
