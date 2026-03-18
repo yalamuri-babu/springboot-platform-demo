@@ -11,6 +11,7 @@ grafana:
       memory: 256Mi
 
 prometheus:
+  enabled: true
   prometheusSpec:
     retention: 3d
     resources:
@@ -40,4 +41,5 @@ prometheus-node-exporter:
       memory: 32Mi
     limits:
       cpu: 100m
-      memory: 64Mi
+      memory: 64Mils
+      
