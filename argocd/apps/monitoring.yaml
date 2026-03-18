@@ -5,18 +5,12 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    chart: kube-prometheus-stack
-    targetRevision: 82.10.4
-    helm:
-      valueFiles:
-        - $values/monitoring/kube-prometheus-stack-values.yaml
   sources:
     - repoURL: https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
       targetRevision: 82.10.4
       helm:
+        skipCrds: true
         valueFiles:
           - $values/monitoring/kube-prometheus-stack-values.yaml
     - repoURL: https://github.com/yalamuri-babu/springboot-platform-demo.git
@@ -31,3 +25,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
