@@ -13,14 +13,14 @@ service:
   targetPort: 8080
 
 readinessProbe:
-  path: /actuator/health
+  path: /
   initialDelaySeconds: 20
   periodSeconds: 10
   timeoutSeconds: 5
   failureThreshold: 3
 
 livenessProbe:
-  path: /actuator/health
+  path: /
   initialDelaySeconds: 30
   periodSeconds: 15
   timeoutSeconds: 5
