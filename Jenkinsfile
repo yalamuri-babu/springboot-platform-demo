@@ -77,7 +77,7 @@ pipeline {
         stage('Commit and Push Git Change') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'jenkins-git-PAT',
+                    credentialsId: 'jenkins-git',
                     usernameVariable: 'GIT_USERNAME',
                     passwordVariable: 'GIT_PASSWORD'
                 )]) {
