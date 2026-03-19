@@ -14,10 +14,7 @@ spec:
         - values-staging.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+    namespace: staging 
+syncPolicy:
+  syncOptions:
+    - CreateNamespace=true
