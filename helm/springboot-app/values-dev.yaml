@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: 776751404462.dkr.ecr.ap-south-1.amazonaws.com/springboot-devops-app
-  tag: "20"
+  tag: "21"
   pullPolicy: IfNotPresent
 
 containerPort: 8080
