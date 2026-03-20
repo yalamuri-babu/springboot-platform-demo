@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/yalamuri-babu/springboot-platform-demo.git
-    targetRevision: "21"
+    targetRevision: main
     path: helm/springboot-app
     helm:
       valueFiles:
