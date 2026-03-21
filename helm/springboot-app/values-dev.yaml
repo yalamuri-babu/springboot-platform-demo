@@ -13,14 +13,14 @@ service:
   targetPort: 8080
 
 readinessProbe:
-  path: /
+  path: /wrongpath
   initialDelaySeconds: 20
   periodSeconds: 10
   timeoutSeconds: 5
   failureThreshold: 3
 
 livenessProbe:
-  path: /
+  path: /wroongpath
   initialDelaySeconds: 30
   periodSeconds: 15
   timeoutSeconds: 5
