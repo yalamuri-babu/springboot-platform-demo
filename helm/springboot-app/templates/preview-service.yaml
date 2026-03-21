@@ -1,7 +1,8 @@
+{{- if .Values.blueGreen.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "springboot-app.fullname" . }}
+  name: {{ include "springboot-app.fullname" . }}-preview
   labels:
     {{- include "springboot-app.selectorLabels" . | nindent 4 }}
 spec:
@@ -14,4 +15,5 @@ spec:
   selector:
     app.kubernetes.io/name: {{ include "springboot-app.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
-    version-color: {{ .Values.blueGreen.activeColor }}
+    version-color: {{ .Values.blueGreen.previewColor }}
+{{- end }}

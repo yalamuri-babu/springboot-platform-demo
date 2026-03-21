@@ -1,47 +1,69 @@
+{{- if .Values.blueGreen.enabled }}
+{{- range $colorName, $colorConfig := .Values.colors }}
+{{- if $colorConfig.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-app
-  namespace: {{ .Release.Namespace }}
+  name: {{ include "springboot-app.fullname" $ }}-{{ $colorName }}
+  labels:
+    {{- include "springboot-app.selectorLabels" $ | nindent 4 }}
+    version-color: {{ $colorName }}
 spec:
-  replicas: {{ .Values.replicaCount }}
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+  replicas: {{ $colorConfig.replicaCount }}
   selector:
     matchLabels:
-      app: springboot-app
+      app.kubernetes.io/name: {{ include "springboot-app.name" $ }}
+      app.kubernetes.io/instance: {{ $.Release.Name }}
+      version-color: {{ $colorName }}
   template:
     metadata:
       labels:
-        app: springboot-app
+        app.kubernetes.io/name: {{ include "springboot-app.name" $ }}
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+        version-color: {{ $colorName }}
     spec:
       containers:
-        - name: springboot-app
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: {{ include "springboot-app.name" $ }}
+          image: "{{ $.Values.image.repository }}:{{ $colorConfig.imageTag }}"
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: {{ .Values.containerPort }}
-
+            - containerPort: 8080
           readinessProbe:
             httpGet:
-              path: {{ .Values.readinessProbe.path }}
-              port: {{ .Values.containerPort }}
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
-            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
-
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: {{ .Values.livenessProbe.path }}
-              port: {{ .Values.containerPort }}
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
-
-          resources:
-{{ toYaml .Values.resources | indent 12 }}
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 15
+---
+{{- end }}
+{{- end }}
+{{- else }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "springboot-app.fullname" . }}
+  labels:
+    {{- include "springboot-app.selectorLabels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "springboot-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "springboot-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "springboot-app.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+{{- end }}

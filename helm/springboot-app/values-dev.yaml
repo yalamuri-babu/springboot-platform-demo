@@ -1,41 +1,22 @@
-replicaCount: 1
-
 image:
   repository: 776751404462.dkr.ecr.ap-south-1.amazonaws.com/springboot-devops-app
-  tag: "21"
-  pullPolicy: IfNotPresent
-
-containerPort: 8080
+  tag: "20"
 
 service:
-  type: ClusterIP
   port: 80
   targetPort: 8080
 
-readinessProbe:
-  path: /
-  initialDelaySeconds: 20
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 3
+blueGreen:
+  enabled: true
+  activeColor: blue
+  previewColor: green
 
-livenessProbe:
-  path: /
-  initialDelaySeconds: 30
-  periodSeconds: 15
-  timeoutSeconds: 5
-  failureThreshold: 3
-
-resources:
-  requests:
-    cpu: "100m"
-    memory: "128Mi"
-  limits:
-    cpu: "200m"
-    memory: "256Mi"
-
-hpa:
-  enabled: false
-
-pdb:
-  enabled: false
+colors:
+  blue:
+    enabled: true
+    replicaCount: 1
+    imageTag: "20"
+  green:
+    enabled: true
+    replicaCount: 1
+    imageTag: "20"
