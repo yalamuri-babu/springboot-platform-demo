@@ -8,8 +8,8 @@ service:
 
 blueGreen:
   enabled: true
-  activeColor: green
-  previewColor: blue
+  activeColor: blue
+  previewColor: green
 
 colors:
   blue:
@@ -19,4 +19,4 @@ colors:
   green:
     enabled: true
     replicaCount: 1
-    imageTag: "212"
+    imageTag: "21"
