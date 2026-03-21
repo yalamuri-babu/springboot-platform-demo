@@ -19,4 +19,4 @@ colors:
   green:
     enabled: true
     replicaCount: 1
-    imageTag: "21"
+    imageTag: "212"
