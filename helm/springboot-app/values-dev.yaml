@@ -8,8 +8,8 @@ service:
 
 blueGreen:
   enabled: true
-  activeColor: blue
-  previewColor: green
+  activeColor: green
+  previewColor: blue
 
 colors:
   blue:
