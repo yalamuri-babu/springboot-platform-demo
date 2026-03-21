@@ -1,6 +1,6 @@
 image:
   repository: 776751404462.dkr.ecr.ap-south-1.amazonaws.com/springboot-devops-app
-  tag: "20"
+  tag: "21"
 
 service:
   port: 80
@@ -15,8 +15,8 @@ colors:
   blue:
     enabled: true
     replicaCount: 1
-    imageTag: "20"
+    imageTag: "21"
   green:
     enabled: true
     replicaCount: 1
-    imageTag: "20"
+    imageTag: "21"
